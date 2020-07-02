@@ -1,5 +1,6 @@
 <?php
 
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -18,5 +19,9 @@ Route::get('/', function () {
 });
 
 Auth::routes();
+
+Route::middleware('has.role')->group(function(){
+    Route::view('dashboard', 'dashboard');
+});
 
 Route::get('/home', 'HomeController@index')->name('home');
