@@ -20,8 +20,15 @@ Route::get('/', function () {
 
 Auth::routes();
 
-Route::middleware('has.role')->group(function(){
-    Route::view('dashboard', 'dashboard');
+Route::middleware('has.role')->prefix('admin')->group(function(){
+    Route::view('dashboard', 'dashboard')->name('dashboard');
+
+    Route::prefix('role-and-permission')->namespace('permissions')->group(function() {
+        Route::get('roles', 'RoleController@index')->name('roles.index');
+        Route::post('roles/create', 'RoleController@store')->name('roles.create');
+        Route::get('roles/{role}/edit', 'RoleController@edit')->name('roles.edit');
+        Route::put('roles/{role}/edit', 'RoleController@update');
+    });
 });
 
 Route::get('/home', 'HomeController@index')->name('home');
