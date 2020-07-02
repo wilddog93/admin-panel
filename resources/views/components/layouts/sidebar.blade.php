@@ -46,7 +46,7 @@
             <div class="list-group">
                 <small class="d-block text-secondary text-uppercase mb-2">Role & Permission</small>
                 <a href=" {{ route('roles.index') }} " class="list-group-item list-group-item-action">Roles</a>
-                <a href="#" class="list-group-item list-group-item-action">Permissions</a>
+                <a href=" {{ route('permissions.index') }} " class="list-group-item list-group-item-action">Permissions</a>
                 <a href="#" class="list-group-item list-group-item-action">Assign Permissions</a>
             </div>
         </div>
