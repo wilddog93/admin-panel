@@ -24,6 +24,9 @@ Route::middleware('has.role')->prefix('admin')->group(function(){
     Route::view('dashboard', 'dashboard')->name('dashboard');
 
     Route::prefix('role-and-permission')->namespace('permissions')->group(function() {
+        Route::get('assignable', 'AssignController@create')->name('assign.create');
+        Route::post('assignable', 'AssignController@store');
+
         Route::prefix('roles')->group(function() {
             Route::get('', 'RoleController@index')->name('roles.index');
             Route::post('create', 'RoleController@store')->name('roles.create');
