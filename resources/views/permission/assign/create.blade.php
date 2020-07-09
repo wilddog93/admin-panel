@@ -22,7 +22,7 @@
         {{ session('success') }}
     </div>
 @endif
-<div class="card">
+<div class="card mb-3">
     <div class="card-header">Assign Permissions</div>
 
     <div class="card-body">
@@ -55,6 +55,36 @@
 
             <button type="submit" class="btn btn-primary">Assign</button>
         </form>
+    </div>
+</div>
+
+<div class="card">
+    <div class="card-body">
+        <h5 class="card-title">Table of Table of Roles & Permissions</h5>
+        <table class="table table-hover">
+            <thead>
+                <tr>
+                    <th scope="col">#</th>
+                    <th scope="col">Name</th>
+                    <th scope="col">Guard name</th>
+                    <th scope="col">The permissions</th>
+                    <th scope="col">Action</th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach ($roles as $index => $role)
+                    <tr>
+                        <th scope="row"> {{ $index + 1 }} </th>
+                        <td> {{ $role->name }} </td>
+                        <td> {{ $role->guard_name }} </td>
+                        <td> {{ implode(', ', $role->getPermissionNames()->toArray()) }} </td>
+                        <td>
+                            <a href="#" class="btn btn-sm btn-primary">Edit</a>
+                        </td>
+                    </tr>
+                @endforeach
+            </tbody>
+        </table>
     </div>
 </div>
 @endsection
