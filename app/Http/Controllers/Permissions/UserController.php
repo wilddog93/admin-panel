@@ -11,7 +11,9 @@ class UserController extends Controller
 {
     public function create()
     {
+        $user = new User;
         return view('permission.assign.user.create', [
+            'user' => $user,
             'roles' => Role::get(),
             'users' => User::get(),
         ]);
@@ -34,6 +36,7 @@ class UserController extends Controller
             'user' => $user,
             'users' => User::get(),
             'roles' => Role::get(),
+            'submit' => "Sync"
         ]);
     }
 

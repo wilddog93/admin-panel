@@ -28,32 +28,7 @@
     <div class="card-body">
         <form action="{{ route('assign.user.create') }}" method="post">
             @csrf
-            <div class="form-group">
-                <label for="email">User Email</label>
-                <select name="email" id="email" class="select2-single select-custom form-control">
-                    <option disabled selected>Find user email</option>
-                    @foreach ($users as $user)
-                        <option value="{{ $user->id }}">{{ $user->email }}</option>
-                    @endforeach
-                </select>
-                @error('email')
-                    <div class="text-danger mt-2"> {{ $message }} </div>
-                @enderror
-            </div>
-            
-            <div class="form-group">
-                <label for="roles">Roles</label>
-                <select name="roles[]" id="roles" class="select2-multi select-custom form-control" multiple>
-                    @foreach ($roles as $role)
-                        <option value="{{ $role->id }}">{{ $role->name }}</option>
-                    @endforeach
-                </select>
-                @error('roles')
-                    <div class="text-danger mt-2"> {{ $message }} </div>
-                @enderror
-            </div>
-            
-            <button type="submit" class="btn btn-primary">Assign</button>
+            @include('permission.assign.user.partials.form')
         </form>
     </div>
 </div>
