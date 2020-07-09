@@ -28,39 +28,14 @@
     <div class="card-body">
         <form action="{{ route('assign.create') }}" method="post">
             @csrf
-            <div class="form-group">
-                <label for="role">Role Name</label>
-                <select name="role" id="role" class="select2-single select-custom form-control">
-                    <option disabled selected>Choose a role!</option>
-                    @foreach ($roles as $role)
-                        <option value="{{ $role->id }}">{{ $role->name }}</option>
-                    @endforeach
-                </select>
-                @error('role')
-                    <div class="text-danger mt-2"> {{ $message }} </div>
-                @enderror
-            </div>
-
-            <div class="form-group">
-                <label for="permissions">permissions Name</label>
-                <select name="permissions[]" id="permissions" class="select2-multi select-custom form-control" multiple>
-                    @foreach ($permissions as $permission)
-                        <option value="{{ $permission->id }}">{{ $permission->name }}</option>
-                    @endforeach
-                </select>
-                @error('permissions')
-                    <div class="text-danger mt-2"> {{ $message }} </div>
-                @enderror
-            </div>
-
-            <button type="submit" class="btn btn-primary">Assign</button>
+            @include('permission.assign.partials.form')
         </form>
     </div>
 </div>
 
 <div class="card">
     <div class="card-body">
-        <h5 class="card-title">Table of Table of Roles & Permissions</h5>
+        <h5 class="card-title">Table of Assign Roles & Permissions</h5>
         <table class="table table-hover">
             <thead>
                 <tr>
@@ -79,7 +54,7 @@
                         <td> {{ $role->guard_name }} </td>
                         <td> {{ implode(', ', $role->getPermissionNames()->toArray()) }} </td>
                         <td>
-                            <a href="#" class="btn btn-sm btn-primary">Edit</a>
+                            <a href=" {{ route('assign.edit', $role) }} " class="btn btn-sm btn-primary">Sync</a>
                         </td>
                     </tr>
                 @endforeach
