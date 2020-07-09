@@ -21,13 +21,22 @@ Route::get('/', function () {
 Auth::routes();
 
 Route::middleware('has.role')->prefix('admin')->group(function(){
-    Route::view('dashboard', 'dashboard')->name('dashboard');
+    Route::view('', 'dashboard')->name('dashboard');
 
     Route::prefix('role-and-permission')->namespace('permissions')->group(function() {
-        Route::get('assignable', 'AssignController@create')->name('assign.create');
-        Route::post('assignable', 'AssignController@store');
-        Route::get('assignable/{role}/edit', 'AssignController@edit')->name('assign.edit');
-        Route::put('assignable/{role}/edit', 'AssignController@update');
+        Route::prefix('assign')->group(function() {
+            Route::get('user', 'UserController@create')->name('assign.user.create');
+            Route::post('user', 'UserController@store');
+            Route::get('{user}/user', 'UserController@edit')->name('assign.user.edit');
+            Route::put('{user}/user', 'UserController@update');
+        });
+
+        Route::prefix('assignable')->group(function() {
+            Route::get('', 'AssignController@create')->name('assign.create');
+            Route::post('', 'AssignController@store');
+            Route::get('{role}/edit', 'AssignController@edit')->name('assign.edit');
+            Route::put('{role}/edit', 'AssignController@update');
+        });
 
         Route::prefix('roles')->group(function() {
             Route::get('', 'RoleController@index')->name('roles.index');
