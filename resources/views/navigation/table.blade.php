@@ -1,6 +1,11 @@
 @extends('layouts.back')
 
 @section('content')
+    @if (session('success'))
+        <div class="alert alert-success">
+            {{ session('success') }}
+        </div>
+    @endif
     <div class="card">
         <div class="card-body">
             <h5 class="card-title">Data Table of Navigation</h5>
@@ -12,6 +17,7 @@
                         <th scope="col">Name</th>
                         <th scope="col">URL</th>
                         <th scope="col">Permission Name</th>
+                        <th scope="col">Action</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -23,7 +29,7 @@
                             <td> {{ $navigation->url }} </td>
                             <td> {{ $navigation->permission_name }} </td>
                             <td>
-                                <a href=" # " class="btn btn-sm btn-primary">Edit</a>
+                                <a href=" {{ route('navigation.edit', $navigation) }} " class="btn btn-sm btn-primary">Edit or Remove</a>
                             </td>
                         </tr>
                     @endforeach

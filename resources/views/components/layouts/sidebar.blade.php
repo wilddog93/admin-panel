@@ -12,16 +12,6 @@
         @endcan
     @endforeach
 
-    @can('create navigation')
-    <div class="mb-5">
-        <div class="list-group">
-            <small class="d-block text-secondary text-uppercase mb-2">Navigation Setting</small>
-            <a href=" {{ route('navigation.create') }} " class="list-group-item list-group-item-action">Create new navigation</a>
-            <a href=" {{ route('navigation.table') }} " class="list-group-item list-group-item-action">Table of navigation</a>
-        </div>
-    </div>
-    @endcan
-
     <div class="mb-5">
         <div class="list-group">
             <small class="d-block text-secondary text-uppercase mb-2">Logout</small>

@@ -15,9 +15,11 @@ class NavigationController extends Controller
 
     public function create()
     {
+        $submit = "Create";
+        $navigation = new Navigation;
         $navigations = Navigation::where('url', null)->get();
         $permissions = Permission::get();
-        return view('navigation.create', compact('navigations', 'permissions'));
+        return view('navigation.create', compact('navigations', 'permissions', 'navigation', 'submit'));
     }
 
     public function store()
@@ -34,6 +36,36 @@ class NavigationController extends Controller
             'parent_id' => request('parent_id') ?? null,
         ]);
 
-        return back();
+        return redirect()->route('navigation.table')->with('success', "Navigation has been created!");
+    }
+
+    public function edit(Navigation $navigation)
+    {
+        $submit = "Update";
+        $navigations = Navigation::where('url', null)->get();
+        $permissions = Permission::get();
+        return view('navigation.edit', compact('navigation','navigations', 'permissions', 'submit'));
+    }
+
+    public function update(Navigation $navigation)
+    {
+        request()->validate([
+            'name' => 'required',
+            'permission_name' => 'required',
+        ]);
+
+        $navigation->update([
+            'name' => request('name'),
+            'url' => request('url') ?? null,
+            'permission_name' => request('permission_name'),
+            'parent_id' => request('parent_id') ?? null,
+        ]);
+        return redirect()->route('navigation.table')->with('success', "{$navigation->name} has been updated!");
+    }
+
+    public function destroy(Navigation $navigation)
+    {
+        $navigation->delete();
+        return redirect()->route('navigation.table')->with('success', "{$navigation->name} has been deleted!");
     }
 }
