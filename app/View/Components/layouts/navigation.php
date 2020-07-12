@@ -5,7 +5,7 @@ namespace App\View\Components\layouts;
 use Illuminate\View\Component;
 use Spatie\Permission\Models\Role;
 
-class navigation extends Component
+class Navigation extends Component
 {
     /**
      * Create a new component instance.

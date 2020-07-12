@@ -20,10 +20,16 @@ Route::get('/', function () {
 
 Auth::routes();
 
-Route::middleware('has.role')->prefix('admin')->group(function(){
-    Route::view('', 'dashboard')->name('dashboard');
+Route::middleware('has.role')->group(function(){
+    Route::view('dashboard', 'dashboard')->name('dashboard');
 
-    Route::prefix('role-and-permission')->namespace('permissions')->group(function() {
+    Route::view('posts/create', 'posts.create');
+    Route::view('posts/table', 'posts.table');
+
+    Route::view('categories/create', 'categories.create');
+    Route::view('categories/table', 'categories.table');
+
+    Route::prefix('role-and-permission')->namespace('permissions')->middleware('permission:assign permission')->group(function() {
         Route::prefix('assign')->group(function() {
             Route::get('user', 'UserController@create')->name('assign.user.create');
             Route::post('user', 'UserController@store');
