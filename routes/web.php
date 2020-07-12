@@ -52,6 +52,12 @@ Route::middleware('has.role')->prefix('admin')->group(function(){
             Route::put('{permission}/edit', 'PermissionController@update');
         });
     });
+
+    Route::prefix('navigation')->middleware('permission:create navigation')->group(function() {
+        Route::get('create', 'NavigationController@create')->name('navigation.create');
+        Route::post('create', 'NavigationController@store');
+        Route::get('table', 'NavigationController@table')->name('navigation.table');
+    });
 });
 
 Route::get('/home', 'HomeController@index')->name('home');
