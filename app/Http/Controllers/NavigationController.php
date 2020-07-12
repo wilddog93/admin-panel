@@ -9,7 +9,8 @@ class NavigationController extends Controller
 {
     public function table()
     {
-        return view('navigation.table');
+        $navigations = Navigation::whereNotNull('url')->get();
+        return view('navigation.table', compact('navigations'));
     }
 
     public function create()
